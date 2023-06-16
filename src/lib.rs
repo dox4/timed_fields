@@ -37,19 +37,19 @@ pub fn add_timed_fields(attr: TokenStream, input: TokenStream) -> TokenStream {
         let mut timed_fields = vec![];
         if !args.no_created_at {
             timed_fields.push(
-                quote! { #[ignore_when(insert, update)] pub created_at: Option<DateTime<Local>> },
+                quote! { #[ignore_when(insert, update)] pub created_at: Option<::chrono::DateTime<::chrono::Local>> },
             );
         }
         if !args.no_updated_at {
             timed_fields.push(
-                quote! { #[ignore_when(insert, update)] pub updated_at: Option<DateTime<Local>> },
+                quote! { #[ignore_when(insert, update)] pub updated_at: Option<::chrono::DateTime<::chrono::Local>> },
             );
         }
         if !args.no_deleted_at {
             timed_fields.push(quote! {
                 #[serde(skip_serializing_if = "Option::is_none")]
                 #[ignore_when(insert, update)]
-                pub deleted_at: Option<DateTime<Local>>
+                pub deleted_at: Option<::chrono::DateTime<::chrono::Local>>
             });
         }
         for field in timed_fields {
