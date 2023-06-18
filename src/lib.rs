@@ -49,6 +49,7 @@ pub fn add_timed_fields(attr: TokenStream, input: TokenStream) -> TokenStream {
             timed_fields.push(quote! {
                 #[serde(skip_serializing_if = "Option::is_none")]
                 #[ignore_when(insert, update)]
+                #[deleted_with = "now()"]
                 pub deleted_at: Option<::chrono::DateTime<::chrono::Local>>
             });
         }
